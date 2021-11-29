@@ -119,7 +119,9 @@ namespace ProductReviewManagement
 
             //RetrieveDataFromDataTable(table);
             Console.WriteLine();
-            RetrieveDataFromDataTables(table);
+            RetrieveDataFromDataTablesWhoseIsLikeValueIsTrue(table);
+            Console.WriteLine();
+            RetrieveDataFromDataTablesWhoseReviewValueIsGood(table);
 
 
         }
@@ -133,7 +135,7 @@ namespace ProductReviewManagement
             }
         }
         //This method for retrieve records who's Islike value is true
-        public static void RetrieveDataFromDataTables(DataTable table)
+        public static void RetrieveDataFromDataTablesWhoseIsLikeValueIsTrue(DataTable table)
         {
             var result = (from product in table.AsEnumerable() where product.Field<bool>("IsLike") == true select product.Field<int>("ProductID")).ToList();
             Console.WriteLine("Product Id of Who's Islike value is true are : ");
@@ -143,5 +145,15 @@ namespace ProductReviewManagement
             }
         }
 
+        //This method for retrive product id whose review is good
+        public static void RetrieveDataFromDataTablesWhoseReviewValueIsGood(DataTable table)
+        {
+            var result = (from product in table.AsEnumerable() where product.Field<string>("Review") == "good" select product.Field<int>("ProductID")).ToList();
+            Console.WriteLine("Product Id of Whose review is good : ");
+            foreach (var product in result)
+            {
+                Console.WriteLine("Product ID : " + product);
+            }
+        }
     }
 }
