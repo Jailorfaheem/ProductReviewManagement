@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ namespace ProductReviewManagement
     {
         public static void Main(string[] args)
         {
+            DataTable table = new DataTable();
             //1 st method
             //List<ProductReview> list = new List<ProductReview>();
             //list.Add(new ProductReview() { ProductId = 1, UserId = 1, Review = "good", Rating = 17, IsLike = true });
@@ -37,6 +39,7 @@ namespace ProductReviewManagement
             RetrieveProductIDAndReview(list);
             Console.WriteLine("\n");
             SkipTop5RecordsFromListAndRetrieveOtherData(list);
+            CreateDataTable();
 
 
             Console.ReadLine();
@@ -94,5 +97,51 @@ namespace ProductReviewManagement
                 Console.WriteLine("ProductID: " + element.productID + "\t" + "Review:" + element.review);
             }
         }
+
+        //This method for create data table 
+        public static void CreateDataTable()
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add("ProductID", typeof(int));
+            table.Columns.Add("UserID", typeof(int));
+            table.Columns.Add("Rating", typeof(int));
+            table.Columns.Add("Review", typeof(string));
+            table.Columns.Add("IsLike", typeof(bool));
+
+            table.Rows.Add(1, 1, 17, "good", true);
+            table.Rows.Add(2, 3, 1, "bad", false);
+            table.Rows.Add(3, 5, 20, "good", true);
+            table.Rows.Add(4, 7, 10, "average", true);
+            table.Rows.Add(5, 1, 5, "bad", false);
+            table.Rows.Add(6, 5, 30, "good", true);
+            table.Rows.Add(7, 7, 13, "average", true);
+            table.Rows.Add(8, 1, 2, "bad", false);
+
+            //RetrieveDataFromDataTable(table);
+            Console.WriteLine();
+            RetrieveDataFromDataTables(table);
+
+
+        }
+        public static void RetrieveDataFromDataTable(DataTable table)
+        {
+            var result = (from product in table.AsEnumerable() select product.Field<int>("ProductID")).ToList();
+            Console.WriteLine("Product ID's are");
+            foreach (var product in result)
+            {
+                Console.WriteLine(product);
+            }
+        }
+        //This method for retrieve records who's Islike value is true
+        public static void RetrieveDataFromDataTables(DataTable table)
+        {
+            var result = (from product in table.AsEnumerable() where product.Field<bool>("IsLike") == true select product.Field<int>("ProductID")).ToList();
+            Console.WriteLine("Product Id of Who's Islike value is true are : ");
+            foreach (var product in result)
+            {
+                Console.WriteLine("Product ID : " + product);
+            }
+        }
+
     }
 }
