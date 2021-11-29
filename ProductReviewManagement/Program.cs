@@ -73,17 +73,6 @@ namespace ProductReviewManagement
                 Console.WriteLine("---------------");
             }
         }
-
-        //This method for Retrieve product id and review from list of all recoprds
-        public static void RetrieveProductIDAndReview(List<ProductReview> productReviewsList)
-        {
-            var p = productReviewsList.Select(product => new { productID = product.ProductId, review = product.Review });
-            foreach (var element in p)
-            {
-                Console.WriteLine("ProductID: " + element.productID + "\t" + "Review:" + element.review);
-            }
-        }
-
         //This method for skip top 5 rcords and retrive other data
         public static void SkipTop5RecordsFromListAndRetrieveOtherData(List<ProductReview> list)
         {
@@ -93,6 +82,16 @@ namespace ProductReviewManagement
             foreach (ProductReview product in remainingRecords)
             {
                 Console.WriteLine("ProductId : " + product.ProductId + " UserId : " + product.UserId + " Rating : " + product.Rating + " Review : " + product.Review + " IsLike : " + product.IsLike);
+            }
+        }
+
+        //This method for Retrieve product id and review from list of all recoprds
+        public static void RetrieveProductIDAndReview(List<ProductReview> productReviewsList)
+        {
+            var p = productReviewsList.Select(product => new { productID = product.ProductId, review = product.Review });
+            foreach (var element in p)
+            {
+                Console.WriteLine("ProductID: " + element.productID + "\t" + "Review:" + element.review);
             }
         }
     }
