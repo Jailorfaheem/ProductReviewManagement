@@ -28,6 +28,8 @@ namespace ProductReviewManagement
             Console.WriteLine("\n");
             Console.WriteLine("Records based on rating and product id : ");
             RetrieveRecordsBasedOnRatingAndProductId(list);
+            Console.WriteLine("\n");
+            CountingProductId(list);
             Console.ReadLine();
         }
         //This method for retrieve top three records from list
@@ -49,6 +51,17 @@ namespace ProductReviewManagement
             foreach (var element in data)
             {
                 Console.WriteLine("ProductId : " + element.ProductId + " Rating : " + element.Rating + " UserId : " + element.UserId + " Review : " + element.Review + " IsLike : " + element.IsLike);
+            }
+        }
+
+        //This method for counting each Id present in the list
+        public static void CountingProductId(List<ProductReview> list)
+        {
+            var data = list.GroupBy(p => p.ProductId).Select(x => new { productID = x.Key, count = x.Count() });
+            foreach (var element in data)
+            {
+                Console.WriteLine("ProductId " + element.productID + "\t" + "Count " + element.count);
+                Console.WriteLine("---------------");
             }
         }
     }
