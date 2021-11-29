@@ -21,7 +21,10 @@ namespace ProductReviewManagement
                 new ProductReview(){ ProductId=2,UserId=3,Review="bad",Rating=1,IsLike=false},
                 new ProductReview(){ ProductId=3,UserId=5,Review="good",Rating=20,IsLike=true},
                 new ProductReview(){ ProductId=4,UserId=7,Review="average",Rating=10,IsLike=true},
-                new ProductReview(){ ProductId=5,UserId=1,Review="bad",Rating=5,IsLike=false}
+                new ProductReview(){ ProductId=5,UserId=1,Review="bad",Rating=5,IsLike=false},
+                new ProductReview(){ ProductId=6,UserId=5,Review="good",Rating=30,IsLike=true},
+                new ProductReview(){ ProductId=7,UserId=7,Review="average",Rating=13,IsLike=true},
+                new ProductReview(){ ProductId=8,UserId=1,Review="bad",Rating=2,IsLike=false}
             };
             Console.WriteLine("Top 3 Records : ");
             RetrieveTop3RecordsFromList(list);
@@ -32,6 +35,10 @@ namespace ProductReviewManagement
             CountingProductId(list);
             Console.WriteLine("\n");
             RetrieveProductIDAndReview(list);
+            Console.WriteLine("\n");
+            SkipTop5RecordsFromListAndRetrieveOtherData(list);
+
+
             Console.ReadLine();
         }
         //This method for retrieve top three records from list
@@ -74,6 +81,18 @@ namespace ProductReviewManagement
             foreach (var element in p)
             {
                 Console.WriteLine("ProductID: " + element.productID + "\t" + "Review:" + element.review);
+            }
+        }
+
+        //This method for skip top 5 rcords and retrive other data
+        public static void SkipTop5RecordsFromListAndRetrieveOtherData(List<ProductReview> list)
+        {
+            //Query syntax for LINQ 
+            var result = (from product in list orderby product.Rating descending select product).Skip(5);
+            var remainingRecords = result;
+            foreach (ProductReview product in remainingRecords)
+            {
+                Console.WriteLine("ProductId : " + product.ProductId + " UserId : " + product.UserId + " Rating : " + product.Rating + " Review : " + product.Review + " IsLike : " + product.IsLike);
             }
         }
     }
