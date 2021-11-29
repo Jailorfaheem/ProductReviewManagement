@@ -23,7 +23,11 @@ namespace ProductReviewManagement
                 new ProductReview(){ ProductId=4,UserId=7,Review="average",Rating=10,IsLike=true},
                 new ProductReview(){ ProductId=5,UserId=1,Review="bad",Rating=5,IsLike=false}
             };
+            Console.WriteLine("Top 3 Records : ");
             RetrieveTop3RecordsFromList(list);
+            Console.WriteLine("\n");
+            Console.WriteLine("Records based on rating and product id : ");
+            RetrieveRecordsBasedOnRatingAndProductId(list);
             Console.ReadLine();
         }
         //This method for retrieve top three records from list
@@ -35,6 +39,16 @@ namespace ProductReviewManagement
             foreach (ProductReview product in topThreeRecords)
             {
                 Console.WriteLine("ProductId : " + product.ProductId + " UserId : " + product.UserId + " Rating : " + product.Rating + " Review : " + product.Review + " IsLike : " + product.IsLike);
+            }
+        }
+
+        //This method for retrieve the records based on rating and product identifier.      
+        public static void RetrieveRecordsBasedOnRatingAndProductId(List<ProductReview> list)
+        {
+            var data = (list.Where(r => r.Rating > 3 && (r.ProductId == 1 || r.ProductId == 4 || r.ProductId == 9))).ToList();
+            foreach (var element in data)
+            {
+                Console.WriteLine("ProductId : " + element.ProductId + " Rating : " + element.Rating + " UserId : " + element.UserId + " Review : " + element.Review + " IsLike : " + element.IsLike);
             }
         }
     }
