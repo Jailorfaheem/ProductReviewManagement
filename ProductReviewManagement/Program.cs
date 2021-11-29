@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 namespace ProductReviewManagement
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             //1 st method
             //List<ProductReview> list = new List<ProductReview>();
@@ -21,6 +23,19 @@ namespace ProductReviewManagement
                 new ProductReview(){ ProductId=4,UserId=7,Review="average",Rating=10,IsLike=true},
                 new ProductReview(){ ProductId=5,UserId=1,Review="bad",Rating=5,IsLike=false}
             };
+            RetrieveTop3RecordsFromList(list);
+            Console.ReadLine();
+        }
+        //This method for retrieve top three records from list
+        public static void RetrieveTop3RecordsFromList(List<ProductReview> list)
+        {
+            //Query syntax for LINQ 
+            var result = from product in list orderby product.Rating descending select product;
+            var topThreeRecords = result.Take(3);
+            foreach (ProductReview product in topThreeRecords)
+            {
+                Console.WriteLine("ProductId : " + product.ProductId + " UserId : " + product.UserId + " Rating : " + product.Rating + " Review : " + product.Review + " IsLike : " + product.IsLike);
+            }
         }
     }
 }
