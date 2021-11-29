@@ -11,13 +11,13 @@ namespace ProductReviewManagement
         {
             //1 st method
             //List<ProductReview> list = new List<ProductReview>();
-            //list.Add(new ProductReview() { ProductId = 1, UserId = 1, Review = "good", Rating = 15, IsLike = true });
+            //list.Add(new ProductReview() { ProductId = 1, UserId = 1, Review = "good", Rating = 17, IsLike = true });
 
             //2 nd method
             //Collection intializer
             List<ProductReview> list = new List<ProductReview>()
             {
-                new ProductReview(){ ProductId=1,UserId=1,Review="good",Rating=15,IsLike=true},
+                new ProductReview(){ ProductId=1,UserId=1,Review="good",Rating=17,IsLike=true},
                 new ProductReview(){ ProductId=2,UserId=3,Review="bad",Rating=1,IsLike=false},
                 new ProductReview(){ ProductId=3,UserId=5,Review="good",Rating=20,IsLike=true},
                 new ProductReview(){ ProductId=4,UserId=7,Review="average",Rating=10,IsLike=true},
@@ -30,6 +30,8 @@ namespace ProductReviewManagement
             RetrieveRecordsBasedOnRatingAndProductId(list);
             Console.WriteLine("\n");
             CountingProductId(list);
+            Console.WriteLine("\n");
+            RetrieveProductIDAndReview(list);
             Console.ReadLine();
         }
         //This method for retrieve top three records from list
@@ -62,6 +64,16 @@ namespace ProductReviewManagement
             {
                 Console.WriteLine("ProductId " + element.productID + "\t" + "Count " + element.count);
                 Console.WriteLine("---------------");
+            }
+        }
+
+        //This method for Retrieve product id and review from list of all recoprds
+        public static void RetrieveProductIDAndReview(List<ProductReview> productReviewsList)
+        {
+            var p = productReviewsList.Select(product => new { productID = product.ProductId, review = product.Review });
+            foreach (var element in p)
+            {
+                Console.WriteLine("ProductID: " + element.productID + "\t" + "Review:" + element.review);
             }
         }
     }
